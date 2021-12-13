@@ -4,7 +4,8 @@ import { request } from "./server";
 import { TaskList } from "./components/TaskList";
 import { TaskForm } from "./components/TaskForm";
 
-export type Task = { label: string; isDone: boolean };
+export type Tag = "prime" | "inFreeTime" | "emergency";
+export type Task = { label: string; isDone: boolean; tags: Tag[] };
 
 const App: React.VFC = () => {
   // タスクリストを格納する

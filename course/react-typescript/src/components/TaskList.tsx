@@ -1,5 +1,5 @@
-import React from "react";
-import { Task } from "../";
+import React, { useState } from "react";
+import { Tag, Task } from "../";
 
 type Props = {
   tasks: Task[];
@@ -17,6 +17,8 @@ export const TaskList: React.FC<Props> = ({ tasks, setTasks }) => {
     setTasks(newTasks);
   };
 
+  const tagsum: Tag[] = ["prime", "inFreeTime", "emergency"];
+
   return (
     <ul>
       {tasks.map((task, index) => (
@@ -27,6 +29,26 @@ export const TaskList: React.FC<Props> = ({ tasks, setTasks }) => {
             type="checkbox"
             checked={task.isDone}
           />
+          {task.tags.map((tag) => (
+            <span>{tag}</span>
+          ))}
+          <select>
+            {tagsum.map((tagsu) => (
+              <option
+                onSelect={() => {
+                  setTasks((bef) =>
+                    bef.map((b) =>
+                      b.label === task.label
+                        ? { ...b, tags: [...b.tags, tagsu] }
+                        : b
+                    )
+                  );
+                }}
+              >
+                {tagsu}
+              </option>
+            ))}
+          </select>
         </li>
       ))}
     </ul>
